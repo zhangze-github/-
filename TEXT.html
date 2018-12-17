@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+        div:target {
+            width: 100px;
+            height: 200px;
+            background-color: red;
+            visibility: hidden;
+        }
+
+        div:nth-of-type(2n) {
+            background-color: aqua;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="1">dsg</div>
+    <div id="2">dsg</div>
+    <div id="3">fdsg</div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <a href="#1">fds</a>
+    <a href="#2">dsg</a>
+    <a href="#3">dsg</a>
+    <script>
+        Array.prototype.unique = function () {
+            var temp = {};
+            arr = [];
+            len = this.length;
+            for (var i = 0; i < len; i++) {
+                if (!temp[this[i]]) {
+                    temp[this[i]] = 'abc';
+                    arr.push(this[i]);
+                }
+            }
+            return arr;
+        }
+        var arr = [1,2,3,2,1,23,2,13,3,1,2,3,2,21,0];
+        console.log(arr.unique());
+        
+
+
+
+    </script>
+
+</body>
+
+</html>

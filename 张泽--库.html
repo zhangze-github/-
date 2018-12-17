@@ -1,0 +1,530 @@
+*{															//css初始化
+	margin: 0;
+	padding: 0;
+	list-style: none; //li去圆点 
+	text-decoration: none;  //a标签去下划线
+}
+															// 引入文件
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>   //vue
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>     <!-- //jquery -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">      <!-- //bootstrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"><!-- //bootstrap -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>				  <!-- //bootstrap -->
+
+
+															//单行文本 水平垂直居中
+div{
+	line-height: height;
+	width: 600px;
+	height: 300px;
+	text-align: center;
+	line-height: 300px;  //单行文本所在的高度
+}
+															//数组去重 在原型链上编程
+<script>
+        Array.prototype.unique = function () {
+            var temp = {};
+            arr = [];
+            len = this.length;
+            for (var i = 0; i < len; i++) {
+                if (!temp[this[i]]) {
+                    temp[this[i]] = 'abc';
+                    arr.push(this[i]);
+                }
+            }
+            return arr
+        }
+        var arr = [1,2,3,2,1,23,2,13,3,1,2,3,2,21,0];
+        console.log(arr.unique());
+</script>
+
+
+
+
+														//封装兼容 取消默认事件
+<body>
+		<div style="margin: 100px"></div>
+		<a href="https://www.baidu.com" id="a">baidu</a>
+		<script>
+			a.onclick = function(e){
+				cancelHandler(e);
+			}
+		  function cancelHandler(){
+			  if(event.preventDefault){
+				  event.preventDefault();
+			  }else{
+				  event.returnValue = false;
+			  }
+		  }
+		</script>
+</body>
+
+
+															//封装兼容 取消冒泡
+<script>
+        document.onclick = function () {
+            console.log('b');
+        }
+        var oDiv = document.getElementsByTagName('div')[0];
+        function stopBubble(event) {
+            if (event.stopPropagation) {
+                event.stopPropagation();
+            } else {
+                event.cancelBubble();
+            }
+        }
+        oDiv.onclick = function (e) {
+            console.log('s');
+             stopBubble(e);
+        }
+    </script>
+
+
+															//封装兼容 绑定函数
+<div style="margin: 100px"></div>
+<script>
+var oDiv = document.getElementsByTagName('div')[0];
+function addEvent(elem,type,handle){
+	if(elem.addEventListener){
+		elem.addEventListener(type,handle,false)
+	}else if(elem.attachEvent){
+		elem.attachEvent('on'+type,function(){
+			handle.call(elem);
+		})
+	}else{
+		elem['on'+type] = handle;
+	}
+}
+function a(){
+	console.log('a');
+}
+addEvent(oDiv,'click',a);// 形参不带on 第三位为回调函数
+
+
+
+
+															//封装兼容 返回可视区窗口尺寸
+function getViewportOffset() {
+	if (window.innerWidth) {
+		return {
+			w: window.innerWidth,
+			h: window.innerHeight
+		}
+	} else {
+		if (document.compatMode === "BackCompat") {
+			return {
+				w: document.body.clientWidth,
+				h: document.body.clientHeight
+			}
+		 } else {
+			return {
+				w: document.documentElement.clientWidth,
+				h: document.documentElement.clientHeight
+			}
+		}
+	}
+}
+
+
+															//封装兼容 求滚动轮滚动的距离
+function getScrollOffset(){
+    if(window.pageXOffset){
+        return {
+            x:window.pageXOffset,
+            y:window.psgeYOffset
+        }
+    }else{
+        return{
+            x:document.body.scrollLeft +document.documentElement.scollLeft,
+            y:document.body.scrollTop +document.documentElement.scollTop
+        }
+    }
+}
+
+
+															//fixed定位 广告水平垂直居中
+div{
+	width:100px;
+	height: 100px;
+	position: fixed;
+	background-color: red;
+	left: 50%;
+	top:50%;
+	margin-left:-50px;
+	margin-top:-50px;
+}
+
+
+															//两栏布局
+*{
+	margin:0;
+	padding: 0;
+}
+
+.right{
+	position: absolute;
+	right:0;
+	width: 100px;
+	height:100px;
+	background-color:pink;
+	opacity: 0.5;
+}
+.left{
+	margin-right:100px;
+	height:100px;
+	background-color:black;
+
+}
+<div class="right"></div>
+<div class="left"></div>
+
+															//给父集加伪元素 清除浮动流
+div:after{display:block;
+	clear:both;
+	content:"";  //相当于加内容
+	}
+div{   //兼容ie6
+	zoom:1;
+	}
+
+															//单行文本溢出打点展示 多行只能手动打点
+div{
+	width:100px;
+	white-space: nowrap; //失去换行功能
+	overflow: hidden;    //溢出部分隐藏
+	text-overflow: ellipsis;//溢出部分打点
+}
+<div>afkabfaiu  abshvkbaa bashkfbaiuabsdkvb akdf</div>
+
+
+
+                                                        //数组排序 改变成b-a为降序
+arr.sort(function(a,b){return a-b;}) 
+
+                                                      // 把一个数组变成乱序 Math.random()会生成一个0到1的数 但是不包括零到一
+var arr = [1,2,3,4,5,6,7,8,9];
+arr.soft(function(a,b){
+	return Math.random()-0.5;
+}) 
+
+                                                      //封装type 区分typeof方法 用来区分类，原始值，引用值
+function type(target){
+	var ret = typeof(target);
+	var templata = {
+	"[object]" : "array",
+	"[object Object]" : "obiect",
+	"[object Number]" : "number-object",
+	"[object boolen]" : "boolen-object",
+	"[object String]" : "string-object"
+	}
+	if(target === null){
+		return "null";
+	}else if(ret == "object"){
+		var str = Object .prototype.call(target);
+		return template[str];
+	}else{
+		return ret;
+	}
+
+																						//	修复的ajax
+    function Ajax(method, url, flag, data, callback) {
+      var app = null;
+      if (window.XMLHttpRequest) {
+        app = new XMLHttpRequest();
+      } else {
+        app = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+      if (method == "GET") {
+        if(data){
+          app.open("GET", url + "?" + data, flag);
+        app.send();
+        }else{
+          app.open("GET", url, flag);
+        app.send();
+        }
+        
+      } else if (method == "POST") {
+        app.open(method, url, flag);
+        app.setRequestHeader(
+          "Content-type",
+          "application/x-www-form-urlencoded"
+        );
+        app.send(data);
+      }
+
+      app.onreadystatechange = function() {
+        if (app.readyState == 4) {
+          if (app.status == 200) {
+            // callback (app.responseText);
+            console.log(JSON.parse(app.responseText));
+          }
+        }
+      };
+    }
+    Ajax("GET", "https://bird.ioliu.cn/v1?url=http://wallpaper.apc.360.cn/index.php?c=WallPaperAndroid&a=getAppsByCategory&cid=6&start=0&count=9", true);
+
+
+
+                                                  		     //封装的ajax 可以从本地的txt文件中获取数据 但要另存为UTF-8格式
+                                                             //ajax的形参分别代表 Ajax（get/post方法，url链接，true/false同步异步，提交的数据data，回调函数）
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<ul id="ul1"></ul>
+	<script>
+		function Ajax  (method, url, flag, data, callback){
+			var app = null;
+			if (window.XMLHttpRequest) {
+				app = new XMLHttpRequest();
+			}else{
+				app = new ActiveXObject('Microsoft.XMLHTTP');
+			}
+			if (method == 'GET') {
+				app.open('GET',url + '?'+data, flag);
+				app.send();
+			}else if (method == 'POST') {
+				app.open(method, url, flag);
+				app.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+				app.send(data);
+			}
+		
+			app.onreadystatechange = function(){
+				if (app.readyState == 4) {
+					if (app.status == 200) {
+						// callback (app.responseText);
+						console.log(app.responseText);
+					}
+				}
+			}
+		}
+		Ajax ('POST','./data.txt',true);
+		 									// 一个回调函数 将数据传过来展示到ul中
+		function showList(ajaxDate){
+			var data = JSON.paese(ajaxDate);
+			console.log(date);
+			var ul = document.getElementById('ul1');
+			data.forEach(function(item,index){
+				var li = document.createElement('li');
+				var a1 = document.creatElement('a');
+				var a2 = document.creaatElement('a');
+				a1.innerText = item.date;
+				a2.innerText = item.title;
+				li.appendChild(a1);
+				li.appendChild(a2);
+				ul.appendChild(li);
+			})
+		}
+	</script>
+</body>
+</html>
+
+
+                                                	      //封装好的 Ajax ：打开方式 地址 是否异步 回调函数 提交数据
+function Ajax (method,address,flag,callBacks,data) {
+	var xhr = null;
+	if(window.XMLHttpRequest) {
+		xhr = new XMLHttpRequest();
+	} else {
+		xhr = new ActiveXObject('Microsoft.XMLHTTP');
+	}
+	if (method == 'get') {
+		xhr.open('get',address,flag);
+		xhr.send();		
+	}else if (method == 'post') {
+		xhr.open('post',address,flag);
+		xhr.setRequestHeader('content-type','application/x-www-form-urlencoded');
+		xhr.send(data);			
+	}
+	
+	xhr.onreadystatechange = function() {
+		if ( xhr.readyState == 4 ) {
+			if ( xhr.status == 200 ) {
+				callBacks(xhr.responseText);
+			} else {
+				alert('出错了,Err：' + xhr.status);
+			}
+		}
+		
+	}	
+}
+
+
+                                                        //封装的cookie 可以连续调用  设置setCookie（名称，值，存储的时间）
+														// 移除removeCookie（名称）  获取getCookie（名称，需要执行的回调函数）
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+   
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    var cookie = {
+        setCookie: function(key,val,date){
+            var oDate = new Date();
+            oDate.setDate(oDate.getDate()+date);
+            document.cookie = key  + '=' + val + ';expires =' + oDate;
+            console.log(document.cookie);
+            return this;
+        },
+        removeCookie: function(key){
+            this.setCookie(key ,' ',-1);
+            return this;
+        },
+        getCookie: function(key,callback){
+            var str = document.cookie;
+            var arr = str.split('; ');
+            console.log(arr);
+            arr.forEach(function(item){
+                var itemArr = item.split('=');
+                if(itemArr[0] == key){
+                    callback ? callback(itemArr[1]):'';
+                }
+            })
+            return this;
+        }
+    }
+    cookie.setCookie('school','duyi',10).setCookie('zhangze','shuaibi',10);
+    cookie.removeCookie('school');
+    cookie.getCookie('zhangze',show);
+    function show(date){
+        console.log(date);
+    }
+    </script>
+</body>
+</html>
+
+
+                                                         //设置一小方块 利用Cookie保留其关闭时位置。
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    div{
+        position: absolute;
+        left:100px;
+        top:100px;
+        height: 100px;
+        width: 100px;
+        background-color: pink;
+    }
+    </style>
+</head>
+<body>
+    <div id="demo">DEMO</div>
+    <script>
+    var cookie = {
+        setCookie: function(key,val,date){
+            var oDate = new Date();
+            oDate.setDate(oDate.getDate()+date);
+            document.cookie = key  + '=' + val + ';expires =' + oDate;
+            console.log(document.cookie);
+            return this;
+        },
+        removeCookie: function(key){
+            this.setCookie(key ,' ',-1);
+            return this;
+        },
+        getCookie: function(key,callback){
+            var str = document.cookie;
+            var arr = str.split('; ');
+            console.log(arr);
+            arr.forEach(function(item){
+                var itemArr = item.split('=');
+                if(itemArr[0] == key){
+                    callback ? callback(itemArr[1]):'';
+                }
+            })
+            return this;
+        }
+    }
+    var oDemo = document.getElementById('demo');
+    var dragFun = {
+        init : function(dom){
+            this.oDiv = dom;
+            cookie.getCookie(this.oDiv.id,function(data){
+                var arr = data.split('&');
+                dom.style.left = arr[0] + 'px';
+                dom.style.top = arr[1] + 'px';
+            })
+            this.bindEvent();
+        },
+        bindEvent :function(){
+            this.oDiv.onmousedown = this.onDemoDown.bind(this);
+            console.log(this.oDiv.onmousedown);
+        },
+        onDemoDown : function(event){
+            this.disX = event.clientX - this.oDiv.offsetLeft;
+            this.disY = event.clientY - this.oDiv.offsetTop;
+            document.onmousemove = this.onDemoMove.bind(this);
+            document.onmouseup = this.onDemoUp.bind(this);
+            console.log(2);
+        },
+        onDemoMove : function(){
+            var newLeft = event.clientX - this.disX;
+            var newTop = event.clientY - this.disY;
+            this.oDiv.style.left = newLeft +"px";
+            this.oDiv.style.top = newTop +"px";
+            console.log(2);
+            this.positionStr = newLeft + '&' + newTop;   
+        },
+        onDemoUp: function (){
+            document.onmousemove = null;
+            document.onmousemove = null;
+            console.log(2);
+             cookie.setCookie(this.oDiv.id, this.positionStr,1);
+        }
+    }
+    dragFun.init(oDemo);
+    </script>
+</body>
+</html> 
+
+
+                                                         // 圣杯模式
+Person.prototype.lastname = "ji";
+function Person(){}
+function Student(){}
+var inhert = (function(){
+	var F = function(){};
+	return function (Parent ,Children){
+		F.prototype = Parent.prototype;
+		Children.prototype = new F();
+		Children.prototype.constructor = Children;
+		Children.prototype.uber = Parent.prototype;
+	}
+}())
+inhert(Person,Student);
+var student = new Student();
+Student.prototype.teacher = 'a';
+
+
+                                                        // 模块化开发模板 解决变量污染问题
+var fn1 =(function(){
+	var a = 123;
+	function test(){
+		console.log(a);
+	}
+	return function(){
+		test()
+	}
+}());
+var fn2 =(function(){
+	var a = 234;
+	function test(){
+		console.log(a);
+	}
+	return function(){
+		test()
+	}
+}());
+fn1()
+fn2()
+ 
