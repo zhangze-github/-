@@ -1,0 +1,412 @@
+                                                           //运动框架封装 可传多个参数
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		* {
+			margin: 0px;
+			padding: 0x;
+		}
+
+		div {
+			width: 100px;
+			height: 100px;
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			background-color: aquamarine;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="demo"></div>
+	<script>
+		var a = {
+			width: 500,
+			height: 500,
+			left: 200,
+			top: 200,
+			opacity: 30
+
+		}
+		var oDiv = document.getElementById('demo');
+		oDiv.onclick = function () {
+			startMove(this, a);
+
+		}
+
+		function getStyle(ele, attr) {
+			if (ele.currentStyle) {
+				return ele.currentStyle[attr];
+			} else {
+				return window.getComputedStyle(ele, false)[attr];
+			}
+		}
+
+		function startMove(ele, iTargetObj,callback) {
+			clearInterval(ele.timer);
+			var iSpeed, iCur;
+			ele.timer = setInterval(function () {
+				var bStop = true;
+				for (var attr in iTargetObj) {
+					if (attr === 'opacity') {
+						iCur = parseFloat(getStyle(ele, attr)) * 100;
+					} else {
+						iCur = parseInt(getStyle(ele, attr));
+					}
+					iSpeed = (iTargetObj[attr] - iCur) / 7;
+					iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+					if (attr === 'opacity') {
+						ele.style.opacity = (iCur + iSpeed) / 100;
+					} else {
+						ele.style[attr] = iCur + iSpeed + 'px';
+					}
+					if (iTargetObj[attr] != iCur) {
+						bStop = false;
+					}
+				}
+				if (bStop) {
+					clearInterval(ele.timer);
+					callback();
+				}
+			}, 30)
+		}
+	</script>
+</body>
+
+</html>
+ 
+ 
+                                                            // 运动封装函数 一次只能传一个属性
+<script>
+        var oDiv = document.getElementsByTagName('div')[0];
+        oDiv.onclick = function () {
+            startMove(this, 500, 'margin-top');
+        }
+
+        function getStyle(ele, attr) {
+            if (ele.currentStyle) {
+                return ele.currentStyle[attr];
+            } else {
+                return window.getComputedStyle(ele, false)[attr];
+            }
+        }
+
+        function startMove(ele, iTarget, attr) {
+            clearInterval(ele.timer);
+            var iSpeed, iCur;
+            ele.timer = setInterval(function () {
+                if (attr === 'opacity') {
+                    iCur = parseFloat(getStyle(ele, attr)) * 100;
+                } else {
+                    iCur = parseInt(getStyle(ele, attr));
+                }
+                iSpeed = (iTarget - iCur) / 7;
+                iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+                if (iCur === iTarget) {
+                    clearInterval(ele.timer);
+                } else {
+                    if (attr === 'opacity') {
+                        ele.style.opacity = (iCur + iSpeed) / 100;
+                    } else {
+                        ele.style[attr] = iCur + iSpeed + 'px';
+                    }
+                }
+
+            }, 30)
+        }
+        
+    </script>
+
+
+															//减速运动小方块
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		* {
+			margin: 0px;
+			padding: px;
+		}
+
+		div {
+			width: 100px;
+			height: 100px;
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			background-color: black;
+		}
+
+		#btn {
+			width: 20px;
+			height: 20px;
+			position: absolute;
+			top: 150px;
+		}
+
+		span {
+			width: 1px;
+			height: 100px;
+			position: absolute;
+			left: 300px;
+			background-color: red;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="demo"></div>
+	<span></span>
+	<button id="btn"></button>
+	<script>
+		var oDiv = document.getElementById('demo');
+		var oBtn = document.getElementById('btn');
+		oBtn.onclick = function () {
+			var iSpeed;
+			timer = setInterval(function () {
+				iSpeed = (300 - oDiv.offsetLeft) / 7;
+				console.log(iSpeed);
+				if (iSpeed > 0) {
+					iSpeed = Math.ceil(iSpeed);
+				} else {
+					iSpeed = Math.floor(iSpeed);
+				}
+				if (iSpeed == 0) {
+					clearInterval(timer);
+				}
+				oDiv.style.left = oDiv.offsetLeft + iSpeed + 'px';
+			}, 30)
+		}
+	</script>
+</body>
+
+</html>
+
+															//弹性方块导航栏
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		* {
+			margin: 0px;
+			padding: 0px;
+			list-style: none;
+		}
+
+		.wrapper {
+			margin: 0 auto;
+			width: 600px;
+			height: 80px;
+			border: 1px solid b;
+			position: relative;
+
+
+		}
+
+		.wrapper li {
+			float: left;
+			width: 148px;
+			height: 78px;
+			border: 1px solid red;
+			text-align: center;
+			line-height: 78px;
+		}
+
+		.wrapper .bg {
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			width: 150px;
+			height: 78px;
+			background-color: aqua;
+			opacity: 0.7;
+		}
+	</style>
+</head>
+
+<body>
+	<ul class="wrapper">
+		<li>dsaf</li>
+		<li>dsfa</li>
+		<li>sdf</li>
+		<li>dsfs</li>
+		<li class="bg"></li>
+	</ul>
+	<script>
+		var oLiArray = document.getElementsByTagName('li');
+		for (var i = 0; i < oLiArray.length - 1; i++) {
+			oLiArray[i].onmouseenter = function () {
+				startMove(oLiArray[oLiArray.length - 1], this.offsetLeft);
+			}
+		}
+
+		function startMove(dom, iTarget) {
+			clearInterval(dom.timer);
+			var iSpeed = 0;
+			var a;
+			var u = 0.8;
+			dom.timer = setInterval(function () {
+				a = (iTarget - dom.offsetLeft) / 4;
+				iSpeed = iSpeed + a;
+				iSpeed *= u;
+				if (Math.abs(iSpeed) < 1 && Math.abs(iTarget - dom.offsetLeft) <= 1) {
+					dom.style.left = iTarget + 'px';
+					clearInterval(dom.timer);
+
+				}
+				dom.style.left = dom.offsetLeft + iSpeed + 'px';
+
+			}, 30);
+		}
+	</script>
+</body>
+
+</html>
+
+
+															//运动小方块
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0px;
+			padding: px;
+		}
+		div {
+			width: 100px;
+			height: 100px;
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			background-color: black;
+		}
+		#btn {
+			width: 20px;
+			height: 20px;
+			position: absolute;
+			top: 150px;
+		}
+		span{
+			width: 1px;
+			height:100px;
+			position:absolute;
+			left:300px;
+			background-color: red;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="demo"></div>
+	<span></span>
+	<button id="btn" ></button>
+	<script>
+		var oDiv = document.getElementById('demo');
+		var oBtn = document.getElementById('btn');
+		oBtn.onclick = function () {
+			timer = setInterval(function () {
+				if(oDiv.offsetLeft >= 300){
+					oDiv.style.left = '300px';
+					clearInterval(timer);
+				}else{
+					oDiv.style.left = oDiv.offsetLeft + 1 + 'px';
+				}
+			}, 10)
+		}
+	</script>
+</body>
+
+</html>
+
+                                                            //减速运动侧边栏
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		div {
+			position: absolute;
+			left: -450px;
+			bottom: 100px;
+			width: 450px;
+			height: 80px;
+			background-color: black;
+		}
+
+		span {
+			position: absolute;
+			top: 0px;
+			right: -50px;
+			width: 50px;
+			height: 80px;
+			background-color: aqua;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="wp">
+		<span id="os">
+		</span>
+	</div>
+	<script>
+		var oDiv = document.getElementById('wp');
+		var oSpan = document.getElementById('os');
+		var timer;
+
+		function startMove(iTarget) {
+			var iSpeed;
+			clearInterval(timer);
+			timer = setInterval(function () {
+				iSpeed = (iTarget - oDiv.offsetLeft) / 7;
+				console.log(iSpeed);
+				if (iSpeed > 0) {
+					iSpeed = Math.ceil(iSpeed);
+				} else {
+					iSpeed = Math.floor(iSpeed);
+				}
+				if (iSpeed == -0) {
+					clearInterval(timer);
+				}
+				oDiv.style.left = oDiv.offsetLeft + iSpeed + 'px';
+			}, 30)
+
+		}
+		oDiv.onmouseenter = function () {
+			startMove(0);
+		}
+		oDiv.onmouseleave = function () {
+			startMove(-450);
+
+		}
+	</script>
+</body>
+
+</html>

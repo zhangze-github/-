@@ -1,0 +1,77 @@
+// jsonp  百度搜索框
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+		}
+
+		#box{
+			margin:50px;
+
+		}
+		input{
+			width:400px;
+			height: 50px;
+		}
+		ul{
+			display: none;
+			width: 400px;
+			
+			border: 1px solid #ccc;
+		}
+		li{
+			
+			list-style: none;
+
+
+		}
+		a{
+			text-decoration: none;
+			padding-left: 20px;
+			color: blue;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<input type="text">
+		<ul></ul>
+		</div>
+	<script>
+	var oInput = document.getElementsByTagName('input')[0];
+	var oUl = document.getElementsByTagName('ul')[0];
+		function doJson(date) {
+			console.log(date.s);
+			var list =date.s;
+				oUl.innerHTML = ' ';
+			if(list.length==0){
+				oUl.style.display='none';
+			}
+			else{ 
+				list.forEach(function(item, i){
+				var oLi = document.createElement('li');
+				var oA = document.createElement('a');
+				oA.href = 'https://www.baidu.com/s?wd=' + item;
+				oA.innerText = item;
+				oLi.appendChild(oA);
+				oUl.appendChild(oLi);
+				oUl.style.display = 'block';
+				 }) 
+			}	
+		} 
+	oInput.onkeyup = function(){
+		var val = this.value;
+		console.log(val);
+		var oScript = document.createElement('script'); //创建script标签
+		oScript.src = 'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd='+val+'&cb=doJson';  //cb的值为回调函数的名称
+			document.body.appendChild(oScript);   //将script标签插到body里
+			document.body.removeChild(oScript);   // 将script标签移除
+	}
+	</script>
+</body>
+</html> 

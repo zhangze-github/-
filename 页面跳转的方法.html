@@ -1,0 +1,28 @@
+<!-- 1、html中使用meta中跳转，通过meta可以设置跳转时间和页面
+<head>
+<!--只是刷新不跳转到其他页面 -->
+<meta http-equiv="refresh" content="5">
+<!--定时转到其他页面 -->
+<meta http-equiv="refresh" content="5;url=index.html"> 
+<!-- 2、a标签直接跳转
+<a href="http://baidu.com">百度一下</a>
+3、通过javascript中实现跳转
+// 直接跳转
+window.location.href='index.html';
+// 定时跳转
+setTimeout("javascript:location.href='index.html'", 5000);
+其实两种方式是类似的，只是有的在javascript中写的跳转，另一种直接从html中写跳转
+<button id="load" onclick="window.location.reload('/html/index.html')">跳转</button>  
+4、html跳转上一页的方式
+window.history.go(-1)；或者window.history.back(-1)；
+在html中写
+<a href=”#” onClick=”JavaScript :history.back(1);”>返回上一页</a>
+<a href=”#” onClick=”javascript :history.Go(-1);”>返回上一页</a>
+在javascript中写跳转上一页
+<div id="btn">按钮</div>
+<script type="text/javascript">
+    var wrong = document.getElementById('btn');
+    wrong.onclick = function() { 
+	window.history.go(-1);//返回上一页
+	window.history.back(-1);//返回上一页
+   } --> 

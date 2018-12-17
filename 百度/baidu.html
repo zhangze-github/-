@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>百度一下 你就知道</title>
+	<link rel="stylesheet" href="baidu.css">
+	<!-- <style>
+		* {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			text-decoration: none;
+		}
+
+		.header {
+			height: 60px;
+			line-height: 60px;
+			width: 390px;
+		}
+
+		.header .nav {
+			list-style: none;
+			z-index: 2;
+			position: absolute;
+			right: 0;
+			top: 0;
+			margin: 19px 0 5px;
+			padding: 0 96px 0 0;
+		}
+
+		.header .nav::after {
+			content: '';
+			clear: both;
+			display: block;
+		}
+
+		.header .nav li {
+			float: right;
+			color: #000;
+			font-weight: 700;
+			line-height: 24px;
+			margin-left: 20px;
+			font-size: 13px;
+		}
+
+		.search .logo {
+			text-align: center;
+		}
+
+		.search .logo img {
+			width: 270px;
+			height: 129px;
+		}
+
+		.search {
+			margin-top: 40px;
+			position: relative;
+		}
+
+		.search .keyWord {
+			margin-top: 20px;
+			text-align: center;
+			position: relative;
+			margin: 0px;
+
+		}
+
+		.search .keyWord form .inpWrapper {
+			position: relative;
+		}
+
+		.search .keyWord form .inpWrapper span {
+			z-index: 1;
+			position: absolute;
+			right: 11px;
+			top: 50%;
+			margin-top: -8px;
+			height: 16px;
+			width: 18px;
+			background-image: url(https://ss1.bdstatic.com/5eN1bjq8AAUYm2zgoY3K/r/www/cache/static/protocol/https/soutu/img/camera_new_5606e8f.png);
+		}
+
+		.btnWrapper input {
+			width: 100px;
+			height: 34px;
+			background-color: #3385ff;
+			cursor: pointer;
+			color: #fff;
+			font-size: 15px;
+			border: none;
+			float: right;
+			margin-top: -36px;
+
+		}
+
+		.search .keyWord form .inpWrapper input {
+			width: 539px;
+			height: 34px;
+			border: 1px solid #b6b6b6;
+			/*	position: relative;*/
+		}
+
+		.search .keyWord .from .inpWrapper {
+			vertical-align: top;
+		}
+
+		.keyWord .inpWrapper {
+			width: 539px;
+			margin: 0 auto;
+		}
+
+		.plat {
+			width: 740px;
+			margin: 0 auto;
+			height: 34px;
+			display: block;
+		}
+
+		.info {
+			margin-top: 240px;
+			text-align: center;
+		}
+
+		.info.weixin img {
+			width: 60px;
+			height: 60px;
+		}
+
+		.info .message {
+			margin-top: 5px;
+
+		}
+
+		.info .message p {
+			padding: 5px 0px;
+
+		}
+
+		.info .message a {
+			color: #999;
+			font-size: 12px;
+		}
+
+		.info .message .line-two {
+			color: #999;
+			font-size: 12px;
+		}
+
+		.ul {
+			display: none;
+			width: 400px;
+			/*	border: 1px solid #ccc;*/
+		}
+
+		li {
+			text-align: left;
+		}
+
+		a {
+			text-decoration: none;
+			padding-left: 20px;
+			color: blue;
+
+		}
+	</style> -->
+</head>
+
+<body>
+	<div class="header">
+		<ul class="nav">
+			<li>
+				<a href="">更多产品</a>
+			</li>
+			<li>
+				<a href="">设置</a>
+			</li>
+			<li>
+				<a href="">登录</a>
+			</li>
+			<li>
+				<a href="">学术</a>
+			</li>
+			<li>
+				<a href="">贴吧</a>
+			</li>
+			<li>
+				<a href="">地图</a>
+			</li>
+			<li>
+				<a href="">视频</a>
+			</li>
+			<li>
+				<a href="">hao123</a>
+			</li>
+			<li>
+				<a href="">新闻</a>
+			</li>
+		</ul>
+	</div>
+	<div class="search">
+		<div class="logo">
+			<img src="https://www.baidu.com/img/bd_logo1.png" alt="">
+		</div>
+		<div class="plat">
+			<div class="keyWord">
+				<form action="" class="form">
+					<div class="inpWrapper">
+						<span class="camera">
+						</span>
+						<input type="text" name="kw">
+						<ul class="ul"></ul>
+					</div>
+				</form>
+			</div>
+			<div class="btnWrapper">
+				<input type="submit" value="百度一下">
+			</div>
+		</div>
+	</div>
+	<div class="info">
+		<div class="weixin">
+			<img src="https://ss1.bdstatic.com/5eN1bjq8AAUYm2zgoY3K/r/www/cache/static/protocol/https/home/img/qrcode/zbios_efde696.png"
+			    alt="">
+			<p>手机百度</p>
+		</div>
+		<div class="message">
+			<p>
+				<a href="">把百度设为主页</a>
+				<a href="">百度推广</a>
+				<a href="">About baidu</a>
+				<a href="">关于百度</a>
+			</p>
+			<div class="line-two">
+				<span>©2018 Baidu 使用百度前必读 意见反馈 京ICP证030173号</span>
+
+				<span>京公网安备11000002000001号</span>
+			</div>
+
+
+		</div>
+	</div>
+
+	<script>
+		var oInput = document.getElementsByTagName('input')[0];
+		var oInput1 = document.getElementsByTagName('input')[1];
+		var oUl = document.getElementsByClassName('ul')[0];
+		oInput1.onclick = function () {
+			if (oInput.value == null) {
+				console.log('kong');
+			} else {
+				window.location.href = 'https://www.baidu.com/s?wd=' + oInput.value;
+			}
+
+		}
+
+		function doJson(date) {
+			console.log(date);
+			console.log(date.s);
+			var list = date.s;
+			oUl.innerHTML = ' ';
+			if (list.length == 0) {
+				oUl.style.display = 'none';
+			} else {
+
+				list.forEach(function (item, i) {
+					var oLi = document.createElement('li');
+					var oA = document.createElement('a');
+					oA.href = 'https://www.baidu.com/s?wd=' + item;
+					
+					oA.innerText = item;
+					oLi.appendChild(oA);
+					oUl.appendChild(oLi);
+					oUl.style.display = 'block';
+				})
+			}
+		}
+		oInput.onkeyup = function () {
+			var val = this.value;
+			console.log(val);
+			var oScript = document.createElement('script');
+			
+			oScript.src = 'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=' + val + '&cb=doJson';
+			console.log(oScript.src);
+			document.body.appendChild(oScript);
+			console.log(oScript);
+			document.body.removeChild(oScript);
+		}
+	</script>
+</body>
+
+</html>

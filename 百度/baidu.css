@@ -1,0 +1,201 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+}
+a{
+  color:#000; 
+}
+.header {
+  height: 60px;
+  line-height: 60px;
+  width: 390px;
+}
+
+.header .nav {
+  list-style: none;
+  z-index: 2;
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 19px 0 5px;
+  padding: 0 96px 0 0;
+}
+
+.header .nav::after {
+  content: '';
+  clear: both;
+  display: block;
+}
+
+.header .nav li {
+  float: right;
+  color: #000;
+  font-weight: 700;
+  line-height: 24px;
+  margin-left: 20px;
+  font-size: 13px;
+}
+
+.search .logo {
+  text-align: center;
+}
+
+.search .logo img {
+  width: 270px;
+  height: 129px;
+}
+
+.search {
+  margin-top: 40px;
+  position: relative;
+}
+
+.plat{
+  width:400px;
+  height:34px;
+  position: absolute;
+  left:50%;
+  margin-left: -200px;
+  border:1px solid black;
+}
+.plat input{
+  width:300px;
+  height:30px;
+}
+.search .keyWord form .inpWrapper span {
+   z-index: 1;
+   position: absolute;
+   right: 110px;
+   top: 50%;
+   margin-top: -8px;
+  height: 16px;
+  width: 18px;
+  background-image: url(https:ss1.bdstatic.com/5eN1bjq8AAUYm2zgoY3K/r/www/cache/static/protocol/https/soutu/img/camera_new_5606e8f.png);
+}
+.btnWrapper input {
+  width: 100px;
+  height:34px;
+  background-color: #3385ff;
+  cursor: pointer;
+  color: #fff;
+  font-size: 15px;
+  border: none;
+  position: absolute;
+  right:0px;
+  top:0px;
+
+}
+/* 
+ .search .keyWord {
+     margin-top: 20px;
+     text-align: center;
+     position: relative;
+     margin: 0px;
+
+ }
+
+ .search .keyWord form .inpWrapper {
+     position: relative;
+ }
+
+ .search .keyWord form .inpWrapper span {
+     z-index: 1;
+     position: absolute;
+     right: 11px;
+     top: 50%;
+     margin-top: -8px;
+     height: 16px;
+     width: 18px;
+     background-image: url(https:ss1.bdstatic.com/5eN1bjq8AAUYm2zgoY3K/r/www/cache/static/protocol/https/soutu/img/camera_new_5606e8f.png);
+ }
+
+ .btnWrapper input {
+     width: 100px;
+     height: 34px;
+     background-color: #3385ff;
+     cursor: pointer;
+     color: #fff;
+     font-size: 15px;
+     border: none;
+     float: right;
+     margin-top: -36px;
+
+ }
+
+ .search .keyWord form .inpWrapper input {
+     width: 539px;
+     height: 34px;
+     border: 1px solid #b6b6b6;
+     position: relative;
+  }
+
+ .search .keyWord .from .inpWrapper {
+     vertical-align: top;
+ }
+
+ .keyWord .inpWrapper {
+     width: 539px;
+     margin: 0 auto;
+ }
+
+ .plat {
+     width: 740px;
+     margin: 0 auto;
+     height: 34px;
+     display: block;
+ } */ 
+
+.info {
+  position: absolute;
+  bottom:0px;
+  text-align: center;
+  left:50%;
+  margin-left: -216px;
+
+ 
+}
+
+.info.weixin img {
+  width: 60px;
+  height: 60px;
+}
+
+.info .message {
+  margin-top: 5px;
+
+}
+
+.info .message p {
+  padding: 5px 0px;
+
+}
+
+.info .message a {
+  color: #999;
+  font-size: 12px;
+}
+
+.info .message .line-two {
+  color: #999;
+  font-size: 12px;
+}
+
+.ul {
+  display: none;
+  width: 400px;
+  /*	border: 1px solid #ccc;*/
+}
+
+li {
+  text-align: left;
+}
+
+a {
+  text-decoration: none;
+  padding-left: 20px;
+  color: black;
+
+}

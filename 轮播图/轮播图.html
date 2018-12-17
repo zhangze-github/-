@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>轮播图</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+        }
+
+        .wrapper {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            margin: 150px auto;
+            border: 2px solid black;
+            overflow: hidden;
+        }
+
+        .wrepper ul ::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        .wrapper ul {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width: 2400px;
+
+        }
+
+        .wrapper ul li {
+            float: left;
+            width: 600px;
+            height: 400px;
+
+        }
+
+        .wrapper ul li img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .btn {
+            position: absolute;
+            top: 50%;
+            margin-top: -10px;
+
+            width: 0px;
+            height: 0px;
+            border: 20px solid transparent;
+            opacity: 0.3;
+            cursor: pointer;
+        }
+
+        btn:hover {
+            opacity: 1;
+        }
+
+        .leftBtn {
+            left: 20px;
+            border-right: 20px solid black
+        }
+
+        .rightBtn {
+            right: 20px;
+            border-left: 20px solid black;
+        }
+
+        .sliderIndex {
+            position: absolute;
+            bottom: 20px;
+            left: 0px;
+            right: 0px;
+            text-align: center;
+        }
+
+        .sliderIndex i {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: blue;
+            margin-left: 20px;
+            opacity: 0.6;
+            cursor: pointer;
+        }
+
+        .sliderIndex i.active {
+            opacity: 0.9;
+            background: red;
+            width: 15px;
+            height: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <ul class="slider">
+            <li>
+                <img src="./图片/1.jpg" alt="">
+            </li>
+            <li>
+                <img src="./图片/2.jpg" alt="">
+            </li>
+            <li>
+                <img src="./图片/3.jpg" alt="">
+            </li>
+            <li>
+                <img src="./图片/4.jpg" alt="">
+            </li>
+        </ul>
+        <div id="leftBtn" class="btn leftBtn"></div>
+        <div id="rightBtn" class="btn rightBtn"></div>
+        <div class="sliderIndex">
+            <i class="active"></i>
+            <i></i>
+            <i></i>
+            <i></i>
+        </div>
+    </div>
+    <script>
+        var oSlider = document.getElementsByTagName('ul')[0];
+        var oLeftBtn = document.getElementById('leftBtn');
+        var oRightBtn = document.getElementById('rightBtn');
+        var oIArray = document.getElementsByTagName('i');
+        var moveDistance = oSlider.children[0].offsetWidth;
+        var sliderTimer = null;
+        var globalIndex = 0;
+        var imageNumber = oSlider.children.length - 1;
+        var lock = true;
+        for (var i = 0; i < oIArray.length; i++) {
+            (function (j) {
+                oIArray[i].onclick = function () {
+                    globalIndex = j;
+                    changeIndex(globalIndex);
+                    lock = false;
+                    startMove(oSlider, {
+                        left: -globalIndex * moveDistance
+                    }, function () {
+                        lock = true;
+                        sliderTimer = setTimeout(autoMove, 1500);
+                    })
+                }
+            })(i);
+        }
+
+
+        oLeftBtn.onclick = function () {
+            autoMove('right-left');
+        }
+        oRightBtn.onclick = function () {
+            autoMove('left-right')
+        }
+
+        function autoMove(direction) {
+            if (lock) {
+                lock = false;
+                clearTimeout(sliderTimer);
+                if (!direction || direction === 'left-right') {
+                    globalIndex++;
+                    startMove(oSlider, {
+                        left: oSlider.offsetLeft - moveDistance
+                    }, function () {
+                        if (oSlider.offsetLeft === -moveDistance *( imageNumber+1)) {
+                            oSlider.style.left = '0px';
+                            globalIndex = 0;
+                        }
+                        sliderTimer = setTimeout(autoMove, 1500);
+                        lock = true;
+                        changeIndex(globalIndex);
+                    });
+                } else if (direction === 'right-left') {
+                    if (oSlider.offsetLeft === 0) {
+                        oSlider.style.left = -moveDistance * imageNumber + 'px';
+                        globalIndex = oSlider.children.length - 1;
+                    }
+                    globalIndex--;
+                    startMove(oSlider, {
+                        left: oSlider.offsetLeft + moveDistance
+                    }, function () {
+                        sliderTimer = setTimeout(autoMove, 1500);
+                        lock = true;
+                        changeIndex(globalIndex);
+                    })
+                }
+            }
+
+        }
+
+        function changeIndex(index) {
+            for (var i = 0; i < oIArray.length; i++) {
+                oIArray[i].setAttribute('class', '')
+            }
+            oIArray[index].setAttribute('class', 'active')
+
+        }
+        sliderTimer = setTimeout(autoMove, 5000);
+
+        // 以下为运动函数封装
+
+        function getStyle(ele, attr) {
+            if (ele.currentStyle) {
+                return ele.currentStyle[attr];
+            } else {
+                return window.getComputedStyle(ele, false)[attr];
+            }
+        }
+
+        function startMove(ele, iTargetObj, callback) {
+
+            clearInterval(ele.timer);
+            var iSpeed, iCur;
+            ele.timer = setInterval(function () {
+                var bStop = true;
+                for (var attr in iTargetObj) {
+                    if (attr === 'opacity') {
+                        iCur = parseFloat(getStyle(ele, attr)) * 100;
+                    } else {
+                        iCur = parseInt(getStyle(ele, attr));
+                    }
+                    iSpeed = (iTargetObj[attr] - iCur) / 7;
+                    iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+                    if (attr === 'opacity') {
+                        ele.style.opacity = (iCur + iSpeed) / 100;
+                    } else {
+                        ele.style[attr] = iCur + iSpeed + 'px';
+                    }
+                    if (iTargetObj[attr] != iCur) {
+                        bStop = false;
+                    }
+                }
+                if (bStop) {
+                    clearInterval(ele.timer);
+                    callback();
+                }
+            }, 30)
+        }
+    </script>
+</body>
+
+</html>
